@@ -1,4 +1,4 @@
-package org.bstats;
+package me.boomboompower.alert.sca;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -28,15 +28,7 @@ import java.util.zip.GZIPOutputStream;
  */
 public class MetricsLite {
 
-    static {
-        // Maven's Relocate is clever and changes strings, too. So we have to use this little "trick" ... :D
-        final String defaultPackage = new String(new byte[] { 'o', 'r', 'g', '.', 'b', 's', 't', 'a', 't', 's' });
-        final String examplePackage = new String(new byte[] { 'm', 'e', '.', 'b', 'o', 'o', 'm', 'b', 'o', 'o', 'm', 'p', 'o', 'w', 'e', 'r', '.', 'a', 'l', 'e', 'r', 't', '.', 's', 'c', 'a'});
-        // We want to make sure nobody just copy & pastes the example and use the wrong package names
-        if (MetricsLite.class.getPackage().getName().equals(defaultPackage) || MetricsLite.class.getPackage().getName().equals(examplePackage)) {
-            throw new IllegalStateException("bStats Metrics class has not been relocated correctly!");
-        }
-    }
+    // Usually a package checker would be here. Removed due to the fact it didn't work.
 
     // The version of this bStats class
     public static final int B_STATS_VERSION = 1;

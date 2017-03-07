@@ -14,6 +14,8 @@ public class ConfigUtils {
     }
 
     public static void loadToPlugin() {
+        SimpleChatAlert.getInstance().reloadConfig();
+
         CMD_PREFIX = getString("prefix"); //!= null ? getString("prefix") : "&4&lALERT: &c";
         INVALID_PERMS = getString("permissions"); //!= null ? getString("permissions") : "&cYou do not have permission to use this command!";
         INVALID_USAGE = getString("usage"); //!= null ? getString("usage") : "&cInvalid usage, use /alert <message, reload>";

@@ -21,7 +21,7 @@ public class SimpleCommand implements CommandExecutor {
                 ConfigUtils.loadToPlugin();
                 LoggingUtils.send(sender, SimpleChatAlert.PREFIX + "Config has been reloaded!");
             } else {
-                LoggingUtils.sendToAll(ConfigUtils.CMD_PREFIX + build(args));
+                LoggingUtils.sendToAll(build(args));
             }
         }
 

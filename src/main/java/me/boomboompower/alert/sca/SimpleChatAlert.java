@@ -1,6 +1,5 @@
 package me.boomboompower.alert.sca;
 
-import org.bstats.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;

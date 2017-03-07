@@ -39,6 +39,6 @@ public class LoggingUtils {
             message = message.replace(hookables.keySet().toArray()[i].toString(), hookables.entrySet().toArray()[i].toString());
             message = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature
         }
-        return message;
+        return (ConfigUtils.CMD_PREFIX + message).replace("{MESSAGE}", ""); // NO MORE {MESSAGE} !
     }
 }
