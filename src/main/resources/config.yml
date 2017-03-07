@@ -1,0 +1,11 @@
+# Welcome to the newest edition of SimpleChatAlert
+# This version was completely overhauled from scratch
+# And is a lot faster than the previous version!
+
+permissions: "&cYou do not have permission to use this command!"
+
+prefix: "&4&lALERT:&c {MESSAGE}"
+
+usage: "&cInvalid usage, use /alert <message, reload>"
+
+metrics: true
