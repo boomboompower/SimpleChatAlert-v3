@@ -36,11 +36,11 @@ public class LoggingUtils {
     }
 
     public static String goThroughFilters(String message) {
+        message = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature requested
         for (int i = 0; i < hookables.size(); i++) {
             String toBeReplaced = String.valueOf(hookables.keySet().toArray()[i]);
             String toReplaceWith = String.valueOf(((Map.Entry) hookables.entrySet().toArray()[i]).getValue());
             message = message.replace(toBeReplaced, toReplaceWith);
-            message = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature
         }
         return (ConfigUtils.CMD_PREFIX + message).replace("{MESSAGE}", ""); // NO MORE {MESSAGE} !
     }
