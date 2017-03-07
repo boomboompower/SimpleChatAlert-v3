@@ -1,16 +1,21 @@
-apply plugin: 'java'
+import org.apache.tools.ant.filters.ReplaceTokens
 
-group = pluginGroup
-version = pluginVersion
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'me.boomboompower.alert.sca'
+version = '1.0-SNAPSHOT'
+archivesBaseName = 'SimpleChatAlert'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
+
     maven {
-        name = 'spigotmc-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
 }
 
@@ -19,10 +24,19 @@ dependencies {
     compile 'org.bukkit:bukkit:1.11-R0.1-SNAPSHOT'
 }
 
-import org.apache.tools.ant.filters.ReplaceTokens
-
 processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
-    }
+    filter ReplaceTokens, tokens: [
+            "VERSION": version
+    ]
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
 }
