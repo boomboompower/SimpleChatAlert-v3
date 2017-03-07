@@ -29,14 +29,15 @@ public class LoggingUtils {
     public static void sendToAll(String message) {
         message = goThroughFilters(message);
         for (Player p : Bukkit.getOnlinePlayers()) {
-            send(p, message.replaceFirst("\\{PLAYER}", p.getName())); // Throwing in our custom hook as well
+            send(p, message.replace("{PLAYER}", p.getName())); // Throwing in our custom hook as well
         }
+        send(Bukkit.getConsoleSender(), message);
     }
 
     public static String goThroughFilters(String message) {
         for (int i = 0; i < hookables.size(); i++) {
-            message = message.replace((String) hookables.keySet().toArray()[i], (String) hookables.entrySet().toArray()[i]);
-            message = message.replaceFirst("\\{MESSAGE}", message); // Throwing this in as well, an older feature
+            message = message.replace(hookables.keySet().toArray()[i].toString(), hookables.entrySet().toArray()[i].toString());
+            message = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature
         }
         return message;
     }

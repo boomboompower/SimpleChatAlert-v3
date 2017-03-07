@@ -3,6 +3,7 @@ package me.boomboompower.alert.sca;
 import org.bstats.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,8 +20,12 @@ public final class SimpleChatAlert extends JavaPlugin {
         try {
             instance = this;
 
+            saveDefaultConfig();
+
             ConfigUtils.loadToPlugin();
             doMetrics();
+
+            registerCommands("alert", new SimpleCommand());
 
             LoggingUtils.send(console, PREFIX + "&cSuccessfully loaded the plugin. Everything seems to be running smoothly!");
         } catch (Exception ex) {
@@ -39,6 +44,10 @@ public final class SimpleChatAlert extends JavaPlugin {
         if (ConfigUtils.USE_METRICS) {
             MetricsLite metrics = new MetricsLite(this);
         }
+    }
+
+    private void registerCommands(Object command, Object clazz) {
+        getCommand((String) command).setExecutor((CommandExecutor) clazz);
     }
 
     static SimpleChatAlert getInstance() {

@@ -1,3 +1,10 @@
 name: SimpleChatAlert
-version: @version@
-main: me.boomboompower.alert.scalert
+version: 1.1-SNAPSHOT
+main: me.boomboompower.alert.sca.SimpleChatAlert
+
+commands:
+   alert:
+     description: Send an alert to all online players
+     aliases: [broadcast, shout]
+     permission: sca.alert
+     usage: Usage /alert <message, reload>

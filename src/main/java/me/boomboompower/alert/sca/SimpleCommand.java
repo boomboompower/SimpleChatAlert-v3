@@ -14,15 +14,15 @@ public class SimpleCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length > 1) {
+        if (args.length == 0) {
+            LoggingUtils.send(sender, ConfigUtils.INVALID_USAGE);
+        } else {
             if (args[0].equalsIgnoreCase("reload")) {
                 ConfigUtils.loadToPlugin();
                 LoggingUtils.send(sender, SimpleChatAlert.PREFIX + "Config has been reloaded!");
             } else {
                 LoggingUtils.sendToAll(ConfigUtils.CMD_PREFIX + build(args));
             }
-        } else {
-            LoggingUtils.send(sender, ConfigUtils.INVALID_USAGE);
         }
 
         return true;
