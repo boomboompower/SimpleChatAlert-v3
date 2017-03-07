@@ -6,13 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LoggingUtils {
 
-    public static final HashMap<String, String> hookables = new HashMap<String, String>(); // Allow other developers to add things
+    public static final HashMap<String, Object> hookables = new HashMap<String, Object>(); // Allow other developers to add things
 
     static {
-        hookables.put("\\{PREFIX}", SimpleChatAlert.PREFIX);
+        hookables.put("{PREFIX}", SimpleChatAlert.PREFIX);
     }
 
     public LoggingUtils() {
@@ -36,7 +37,9 @@ public class LoggingUtils {
 
     public static String goThroughFilters(String message) {
         for (int i = 0; i < hookables.size(); i++) {
-            message = message.replace(hookables.keySet().toArray()[i].toString(), hookables.entrySet().toArray()[i].toString());
+            String toBeReplaced = String.valueOf(hookables.keySet().toArray()[i]);
+            String toReplaceWith = String.valueOf(((Map.Entry) hookables.entrySet().toArray()[i]).getValue());
+            message = message.replace(toBeReplaced, toReplaceWith);
             message = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature
         }
         return (ConfigUtils.CMD_PREFIX + message).replace("{MESSAGE}", ""); // NO MORE {MESSAGE} !
