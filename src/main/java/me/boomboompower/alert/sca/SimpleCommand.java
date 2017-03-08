@@ -22,6 +22,10 @@ public class SimpleCommand implements CommandExecutor {
                 LoggingUtils.send(sender, SimpleChatAlert.PREFIX + "Config has been reloaded!");
             } else {
                 LoggingUtils.sendToAll(build(args));
+
+                if (ConfigUtils.USE_TITLE) {
+                    LoggingUtils.sendTitleToAll(ConfigUtils.MAIN_TITLE, ConfigUtils.SUB_TITLE, ConfigUtils.FADEIN, ConfigUtils.STAY, ConfigUtils.FADEOUT);
+                }
             }
         }
 

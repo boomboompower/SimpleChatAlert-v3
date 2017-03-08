@@ -12,7 +12,7 @@ public final class SimpleChatAlert extends JavaPlugin {
 
     private CommandSender console = Bukkit.getConsoleSender();
 
-    static final String PREFIX = ChatColor.DARK_RED.toString() + ChatColor.BOLD + "SCA: " + ChatColor.WHITE;
+    protected static final String PREFIX = ChatColor.DARK_RED.toString() + ChatColor.BOLD + "SCA: " + ChatColor.WHITE;
 
     @Override
     public void onEnable() {
@@ -49,7 +49,7 @@ public final class SimpleChatAlert extends JavaPlugin {
         getCommand((String) command).setExecutor((CommandExecutor) clazz);
     }
 
-    static SimpleChatAlert getInstance() {
+    protected static SimpleChatAlert getInstance() {
         return instance;
     }
 }

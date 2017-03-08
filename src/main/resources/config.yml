@@ -8,4 +8,15 @@ prefix: "&4&lALERT:&c {MESSAGE}"
 
 usage: "&cInvalid usage, use /alert <message, reload>"
 
+# Titles - START
+title: false
+
+maintitle: "&4&lALERT"
+subtitle: "&c{MESSAGE}"
+
+fadein: 10
+stay: 70
+fadeout: 20
+# Titles - END
+
 metrics: true
