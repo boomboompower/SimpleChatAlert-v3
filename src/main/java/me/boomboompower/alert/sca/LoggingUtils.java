@@ -19,50 +19,56 @@ public class LoggingUtils {
     protected LoggingUtils() {
     }
 
-    protected static void log(String message) {
+    public static void log(String message) {
         send(Bukkit.getConsoleSender(), message);
     }
 
-    protected static void send(CommandSender sender, String message) {
+    public static void send(CommandSender sender, String message) {
         sender.sendMessage(translate(message));
     }
 
-    protected static String translate(String message) {
+    public static String translate(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
-    protected static void sendToAll(String message) {
-        message = goThroughFilters(message);
+    public static void sendToAll(String message) {
+        message = goThroughFilters(ConfigUtils.CMD_PREFIX + message);
         for (Player p : Bukkit.getOnlinePlayers()) {
             send(p, message.replace("{PLAYER}", p.getName())); // Throwing in our custom hook as well
         }
         send(Bukkit.getConsoleSender(), message);
     }
 
-    protected static void sendTitleToAll(String title, String subtitle, Integer fadeIn, Integer stay, Integer fadeOut) {
-        title = goThroughFilters(title);
-        subtitle = goThroughFilters(subtitle);
+    public static void sendTitleToAll(final String title, final String subtitle, Integer fadeIn, Integer stay, Integer fadeOut) {
         try {
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                p.sendTitle(title.replace("{PLAYER}", p.getName()), subtitle.replace("{PLAYER}", p.getName()), fadeIn, stay, fadeOut);
-            }
+            Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle(goThroughFilters(ConfigUtils.MAIN_TITLE + title, player), goThroughFilters(ConfigUtils.SUB_TITLE + subtitle, player), fadeIn, stay, fadeOut));
         } catch (Exception e) {
             log("&cAssuming server is running an older version of Bukkit");
             log("&cIgnoring timings due to this.");
-            for (Player p : Bukkit.getOnlinePlayers()) {
-                // Use deprecated method if the above one cannot be found
-                p.sendTitle(title.replace("{PLAYER}", p.getName()), subtitle.replace("{PLAYER}", p.getName()));
-            }
+            // Use deprecated method if the above one cannot be found
+            Bukkit.getOnlinePlayers().forEach(player -> player.sendTitle(goThroughFilters(ConfigUtils.MAIN_TITLE + title, player), goThroughFilters(ConfigUtils.SUB_TITLE + subtitle, player)));
+        }
+    }
+
+    public static void sendActionbarToAll(final String message) {
+        try {
+            Bukkit.getOnlinePlayers().forEach(player -> new ReflectionUtils(player).sendActionbar(goThroughFilters(ConfigUtils.ACTIONBAR_FORMAT + message)));
+        } catch (Exception ex) {
+            log("&cAn error occurred whilst sending an actionbar to all players...");
         }
     }
 
     protected static String goThroughFilters(String message) {
-        message = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature requested
+        String xmessage = message.replace("{MESSAGE}", message); // Throwing this in as well, an older feature requested
         for (int i = 0; i < placeholders.size(); i++) {
             String toBeReplaced = String.valueOf(placeholders.keySet().toArray()[i]);
             String toReplaceWith = String.valueOf(((Map.Entry) placeholders.entrySet().toArray()[i]).getValue());
-            message = message.replace(toBeReplaced, toReplaceWith);
+            xmessage = message.replace(toBeReplaced, toReplaceWith);
         }
-        return (ConfigUtils.CMD_PREFIX + message).replace("{MESSAGE}", ""); // NO MORE {MESSAGE} !
+        return xmessage.replace("{MESSAGE}", ""); // NO MORE {MESSAGE} !
+    }
+
+    protected static String goThroughFilters(String message, Player player) {
+        return goThroughFilters(message.replace("{PLAYER}", player.getName()));
     }
 }

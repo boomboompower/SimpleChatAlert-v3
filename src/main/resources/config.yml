@@ -19,4 +19,7 @@ stay: 70
 fadeout: 20
 # Titles - END
 
+actionbar: false
+actionbar_format: "&4&lALERT:&c {MESSAGE}"
+
 metrics: true

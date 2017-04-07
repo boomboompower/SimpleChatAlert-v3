@@ -24,7 +24,10 @@ public class SimpleCommand implements CommandExecutor {
                 LoggingUtils.sendToAll(build(args));
 
                 if (ConfigUtils.USE_TITLE) {
-                    LoggingUtils.sendTitleToAll(ConfigUtils.MAIN_TITLE, ConfigUtils.SUB_TITLE, ConfigUtils.FADEIN, ConfigUtils.STAY, ConfigUtils.FADEOUT);
+                    LoggingUtils.sendTitleToAll(build(args), build(args), ConfigUtils.FADEIN, ConfigUtils.STAY, ConfigUtils.FADEOUT);
+                }
+                if (ConfigUtils.USE_ACTIONBAR) {
+                    LoggingUtils.sendActionbarToAll(build(args));
                 }
             }
         }

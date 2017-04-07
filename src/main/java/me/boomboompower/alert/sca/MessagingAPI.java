@@ -25,6 +25,10 @@ public class MessagingAPI {
         logger.log(Level.INFO, String.format("Registered \'%s\' as a placeholder to SimpleChatAlert.", textToReplace));
     }
 
+    public Object getFromConfig(ConfigType configurationSection) {
+        return configurationSection.getReturnType();
+    }
+
     public enum ConfigType {
         PERMISSION(ConfigUtils.INVALID_PERMS),
         PREFIX(ConfigUtils.CMD_PREFIX),
@@ -37,7 +41,7 @@ public class MessagingAPI {
         TITLE_FADEOUT(ConfigUtils.FADEOUT),
         METRICS(ConfigUtils.USE_METRICS);
 
-        private Object returnType;
+        Object returnType;
 
         ConfigType(String returnType) {
             this.returnType = returnType;

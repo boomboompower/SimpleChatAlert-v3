@@ -7,9 +7,11 @@ public class ConfigUtils {
     protected static String CMD_PREFIX;
     protected static String INVALID_PERMS;
     protected static String INVALID_USAGE;
+    protected static String ACTIONBAR_FORMAT;
     protected static String MAIN_TITLE;
     protected static String SUB_TITLE;
 
+    protected static Boolean USE_ACTIONBAR;
     protected static Boolean USE_METRICS;
     protected static Boolean USE_TITLE;
 
@@ -20,15 +22,17 @@ public class ConfigUtils {
     protected ConfigUtils() {
     }
 
-    protected static void loadToPlugin() {
+    public static void loadToPlugin() {
         SimpleChatAlert.getInstance().reloadConfig();
 
-        CMD_PREFIX = getString("prefix") != null ? getString("prefix") : "&4&lALERT: &c";
+        CMD_PREFIX = getString("prefix") != null ? getString("prefix") : "&4&lALERT:&c {MESSAGE}";
         INVALID_PERMS = getString("permissions") != null ? getString("permissions") : "&cYou do not have permission to use this command!";
         INVALID_USAGE = getString("usage") != null ? getString("usage") : "&cInvalid usage, use /alert <message, reload>";
+        INVALID_USAGE = getString("usage") != null ? getString("actionbar_format") : "&4&lALERT:&c {MESSAGE}";
         MAIN_TITLE = getString("maintitle") != null ? getString("maintitle") : "&4&lALERT";
-        SUB_TITLE = getString("subtitle") != null ? getString("subtitle") : "&c";
+        SUB_TITLE = getString("subtitle") != null ? getString("subtitle") : "&c{MESSAGE}";
 
+        USE_ACTIONBAR = getBoolean("actionbar");
         USE_METRICS = getBoolean("metrics");
         USE_TITLE = getBoolean("title");
 
